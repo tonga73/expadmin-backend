@@ -8,4 +8,31 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  shadowDatabaseUrl = env("DATABASE_URL")
+}
+model User {
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  name  String?
+  posts Record[]
+}
+
+model Record {
+  id          Int       @id @default(autoincrement())
+  title       String
+  order       String?
+  archive     Boolean   @default(false)
+  status      String?
+  priority    String?
+  location    Location  @relation(fields: [locationId], references: [id])
+  author      User      @relation(fields: [authorId], references: [id])
+  authorId    Int
+  locationId  Int
+}
+
+model Location {
+  id      Int     @id @default(autoincrement())
+  name    String
+  court   String?
+  records Record[]
 }
