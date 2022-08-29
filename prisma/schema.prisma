@@ -24,10 +24,10 @@ model Record {
   archive     Boolean   @default(false)
   status      String?
   priority    String?
-  location    Location  @relation(fields: [locationId], references: [id])
-  author      User      @relation(fields: [authorId], references: [id])
-  authorId    Int
-  locationId  Int
+  location    Location?  @relation(fields: [locationId], references: [id])
+  author      User?      @relation(fields: [authorId], references: [id])
+  authorId    Int?
+  locationId  Int?
 }
 
 model Location {
