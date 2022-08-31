@@ -6,11 +6,13 @@ import { Record as RecordModel } from '@prisma/client';
 export class RecordController {
   constructor(private readonly recordService: RecordService) {}
 
+  // OBTENER TODOS LOS EXPEDIENTES
   @Get('records')
   async getRecords(): Promise<RecordModel[]> {
     return this.recordService.records({});
   }
 
+  // CREAR EXPEDIENTE
   @Post('record')
   async newRecord(
     @Body()
