@@ -24,15 +24,23 @@ model Record {
   archive     Boolean   @default(false)
   status      String?
   priority    String?
-  location    Location?  @relation(fields: [locationId], references: [id])
+  district    District?  @relation(fields: [districtId], references: [id])
   author      User?      @relation(fields: [authorId], references: [id])
   authorId    Int?
-  locationId  Int?
+  districtId  Int?
+  tracings    Tracing[]
 }
 
-model Location {
+model District {
   id      Int     @id @default(autoincrement())
   name    String
-  court   String?
+  city    String?
   records Record[]
+}
+
+model Tracing {
+  id       Int     @id @default(autoincrement())
+  name     String
+  record   Record  @relation(fields: [recordId], references: [id])
+  recordId Int
 }

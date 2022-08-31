@@ -8,10 +8,10 @@ import { UserModule } from './user/user.module';
 
 import { RecordModule } from './record/record.module';
 
-import { LocationModule } from './location/location.module';
+import { DistrictModule } from './district/district.module';
 
 @Module({
-  imports: [UserModule, LocationModule, RecordModule],
+  imports: [UserModule, DistrictModule, RecordModule],
   controllers: [AppController],
   providers: [AppService, PrismaService],
 })

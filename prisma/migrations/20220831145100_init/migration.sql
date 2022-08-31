@@ -16,25 +16,37 @@ CREATE TABLE "Record" (
     "status" TEXT,
     "priority" TEXT,
     "authorId" INTEGER,
-    "locationId" INTEGER,
+    "districtId" INTEGER,
 
     CONSTRAINT "Record_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "Location" (
+CREATE TABLE "District" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
-    "court" TEXT,
+    "city" TEXT,
 
-    CONSTRAINT "Location_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "District_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Tracing" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
+    "recordId" INTEGER NOT NULL,
+
+    CONSTRAINT "Tracing_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- AddForeignKey
-ALTER TABLE "Record" ADD CONSTRAINT "Record_locationId_fkey" FOREIGN KEY ("locationId") REFERENCES "Location"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "Record" ADD CONSTRAINT "Record_districtId_fkey" FOREIGN KEY ("districtId") REFERENCES "District"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Record" ADD CONSTRAINT "Record_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Tracing" ADD CONSTRAINT "Tracing_recordId_fkey" FOREIGN KEY ("recordId") REFERENCES "Record"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
