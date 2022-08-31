@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { RecordService } from './record.service';
 import { Record as RecordModel } from '@prisma/client';
 
@@ -10,6 +10,12 @@ export class RecordController {
   @Get('records')
   async getRecords(): Promise<RecordModel[]> {
     return this.recordService.records({});
+  }
+
+  // OBTENER EL EXPEDIENTE COMPLETO
+  @Get('record/:id')
+  async getRecordById(@Param('id') id: string): Promise<RecordModel> {
+    return this.recordService.record({ id: Number(id) });
   }
 
   // CREAR EXPEDIENTE

@@ -8,7 +8,7 @@ export class TracingController {
 
   @Post('tracing')
   async newTracing(
-    @Body('tracing')
+    @Body()
     tracingData: {
       name: string;
       record: number;

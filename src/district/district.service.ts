@@ -6,6 +6,17 @@ import { District, Prisma } from '@prisma/client';
 export class DistrictService {
   constructor(private prisma: PrismaService) {}
 
+  async district(
+    districtWhereUniqueInput: Prisma.DistrictWhereUniqueInput,
+  ): Promise<District | null> {
+    return this.prisma.district.findUnique({
+      where: districtWhereUniqueInput,
+      include: {
+        records: true,
+      },
+    });
+  }
+
   async districts(params: {
     skip?: number;
     take?: number;
