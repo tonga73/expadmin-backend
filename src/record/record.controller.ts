@@ -1,6 +1,17 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Patch,
+  Delete,
+} from '@nestjs/common';
 import { RecordService } from './record.service';
 import { Record as RecordModel } from '@prisma/client';
+
+import { CreateRecordDto } from './dto/create-record.dto';
+import { UpdateRecordDto } from './dto/update-record.dto';
 
 @Controller()
 export class RecordController {
@@ -22,13 +33,7 @@ export class RecordController {
   @Post('record')
   async newRecord(
     @Body()
-    recordData: {
-      title: string;
-      order?: string;
-      archive?: boolean;
-      status?: string;
-      priority?: string;
-    },
+    recordData: CreateRecordDto,
   ): Promise<RecordModel> {
     const { title, order, archive, status, priority } = recordData;
     return this.recordService.createRecord({
@@ -38,5 +43,20 @@ export class RecordController {
       status,
       priority,
     });
+  }
+
+  // EDITAR EXPEDIENTE
+  @Patch('record/:id')
+  async editRecord(
+    @Param('id') id: number,
+    @Body() updateRecordDto: UpdateRecordDto,
+  ): Promise<RecordModel> {
+    return this.recordService.updateRecord(+id, updateRecordDto);
+  }
+
+  // ELIMINAR EXPEDIENTE
+  @Delete('record/:id')
+  async removeRecord(@Param('id') id: string): Promise<RecordModel> {
+    return this.recordService.deleteRecord({ id: Number(id) });
   }
 }

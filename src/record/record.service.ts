@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { Record, Prisma } from '@prisma/client';
+import { UpdateRecordDto } from './dto/update-record.dto';
 
 @Injectable()
 export class RecordService {
@@ -40,13 +41,18 @@ export class RecordService {
     });
   }
 
-  async updateRecord(params: {
-    where: Prisma.RecordWhereUniqueInput;
-    data: Prisma.RecordUpdateInput;
-  }): Promise<Record> {
-    const { data, where } = params;
+  async updateRecord(
+    id: number,
+    updateRecordDto: UpdateRecordDto,
+  ): Promise<Record> {
     return this.prisma.record.update({
-      data,
+      data: updateRecordDto,
+      where: { id },
+    });
+  }
+
+  async deleteRecord(where: Prisma.RecordWhereUniqueInput): Promise<Record> {
+    return this.prisma.record.delete({
       where,
     });
   }
