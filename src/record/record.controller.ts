@@ -23,7 +23,7 @@ export class RecordController {
     return this.recordService.records({});
   }
 
-  // OBTENER EL EXPEDIENTE COMPLETO
+  // OBTENER EL EXPEDIENTE COMPLETO POR ID
   @Get('record/:id')
   async getRecordById(@Param('id') id: string): Promise<RecordModel> {
     return this.recordService.record({ id: Number(id) });
