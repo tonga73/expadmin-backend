@@ -14,6 +14,7 @@ export class RecordService {
       where: recordWhereUniqueInput,
       include: {
         tracings: true,
+        district: true,
       },
     });
   }
