@@ -33,16 +33,9 @@ export class RecordController {
   @Post('record')
   async newRecord(
     @Body()
-    recordData: CreateRecordDto,
+    createRecordDto: CreateRecordDto,
   ): Promise<RecordModel> {
-    const { title, order, archive, status, priority } = recordData;
-    return this.recordService.createRecord({
-      title,
-      order,
-      archive,
-      status,
-      priority,
-    });
+    return this.recordService.createRecord(createRecordDto);
   }
 
   // EDITAR EXPEDIENTE
