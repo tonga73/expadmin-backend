@@ -4,13 +4,22 @@ import { PrismaService } from './prisma.service';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
-import { UserModule } from './user/user.module';
-import { RecordModule } from './record/record.module';
-import { DistrictModule } from './district/district.module';
-import { TracingModule } from './tracing/tracing.module';
+import { UsersModule } from './users/users.module';
+import { RecordsModule } from './records/records.module';
+import { NotesModule } from './notes/notes.module';
+import { OfficesModule } from './offices/offices.module';
+import { CourtsModule } from './courts/courts.module';
+import { DistrictsModule } from './districts/districts.module';
 
 @Module({
-  imports: [UserModule, DistrictModule, RecordModule, TracingModule],
+  imports: [
+    UsersModule,
+    RecordsModule,
+    NotesModule,
+    OfficesModule,
+    CourtsModule,
+    DistrictsModule,
+  ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
 })

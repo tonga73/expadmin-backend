@@ -8,9 +8,6 @@ import {
   Delete,
 } from '@nestjs/common';
 import { AppService } from './app.service';
-import { UserService } from './user/user.service';
-
-import { User as UserModel } from '@prisma/client';
 
 @Controller()
 export class AppController {
