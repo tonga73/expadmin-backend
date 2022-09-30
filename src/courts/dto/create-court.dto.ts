@@ -8,6 +8,11 @@ export class CreateCourtDto {
   @IsString()
   @IsNotEmpty()
   @IsOptional()
+  city: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @IsOptional()
   judge: string;
 
   @IsString()

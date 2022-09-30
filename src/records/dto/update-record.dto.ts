@@ -26,11 +26,11 @@ export class UpdateRecordDto extends PartialType(CreateRecordDto) {
   @IsOptional()
   archive: boolean;
 
-  @IsInt()
+  @IsString()
   @IsOptional()
-  officeId: number;
+  office: string;
 
   @IsInt()
   @IsOptional()
-  tracingId: number;
+  courtId: number;
 }

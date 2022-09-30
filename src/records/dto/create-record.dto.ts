@@ -19,7 +19,11 @@ export class CreateRecordDto {
   @IsOptional()
   archive: boolean;
 
+  @IsString()
+  @IsOptional()
+  office: string;
+
   @IsInt()
   @IsOptional()
-  officeId: number;
+  courtId: number;
 }

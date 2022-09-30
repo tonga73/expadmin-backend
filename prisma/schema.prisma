@@ -30,10 +30,11 @@ model Record {
   tracing     Tracing   @default(ACEPTA_CARGO)
   priority    Priority  @default(NULA)
   archive     Boolean   @default(false)
+  office      String?   
   notes       Note[]
 
-  office      Office?   @relation(fields: [officeId], references: [id])
-  officeId    Int?
+  court       Court?   @relation(fields: [courtId], references: [id])
+  courtId     Int?
 
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
@@ -51,27 +52,20 @@ model Note {
   updatedAt   DateTime  @updatedAt
 }
 
-model Office {
-  id        Int     @id @default(autoincrement())
-  name      String
-  secretary String?
-  court     Court?  @relation(fields: [courtId], references: [id])
-  courtId   Int?
-  records   Record[]
-}
 model Court {
   id          Int        @id @default(autoincrement())
   name        String
+  city        String?
   judge       String?
   address     String?
   district    District?  @relation(fields: [districtId], references: [id])
   districtId  Int?   
-  offices     Office[]
+  records     Record[]
 }
+
 model District {
   id      Int     @id @default(autoincrement())
-  name    String
-  city    String?
+  name    String  @unique
   courts  Court[]
 }
 

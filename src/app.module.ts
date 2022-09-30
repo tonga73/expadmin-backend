@@ -7,7 +7,6 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { RecordsModule } from './records/records.module';
 import { NotesModule } from './notes/notes.module';
-import { OfficesModule } from './offices/offices.module';
 import { CourtsModule } from './courts/courts.module';
 import { DistrictsModule } from './districts/districts.module';
 
@@ -16,7 +15,6 @@ import { DistrictsModule } from './districts/districts.module';
     UsersModule,
     RecordsModule,
     NotesModule,
-    OfficesModule,
     CourtsModule,
     DistrictsModule,
   ],

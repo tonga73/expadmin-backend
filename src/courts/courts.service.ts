@@ -39,7 +39,6 @@ export class CourtsService {
       where: courtWhereUniqueInput,
       include: {
         district: true,
-        offices: true,
       },
     });
   }
@@ -50,7 +49,6 @@ export class CourtsService {
       where: { id },
       include: {
         district: true,
-        offices: true,
       },
     });
   }

@@ -16,6 +16,11 @@ export class UpdateCourtDto extends PartialType(CreateCourtDto) {
   @IsString()
   @IsNotEmpty()
   @IsOptional()
+  city: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @IsOptional()
   judge: string;
 
   @IsString()

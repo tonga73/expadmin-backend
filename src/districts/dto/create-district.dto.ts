@@ -4,9 +4,4 @@ export class CreateDistrictDto {
   @IsString()
   @IsNotEmpty()
   name: string;
-
-  @IsString()
-  @IsNotEmpty()
-  @IsOptional()
-  city: string;
 }
