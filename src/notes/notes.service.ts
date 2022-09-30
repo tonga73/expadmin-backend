@@ -15,8 +15,21 @@ export class NotesService {
     });
   }
 
-  findAll() {
-    return `This action returns all notes`;
+  async findAll(params: {
+    skip?: number;
+    take?: number;
+    cursor?: Prisma.NoteWhereUniqueInput;
+    where?: Prisma.NoteWhereInput;
+    orderBy?: Prisma.NoteOrderByWithRelationInput;
+  }): Promise<Note[]> {
+    const { skip, take, cursor, where, orderBy } = params;
+    return this.prisma.note.findMany({
+      skip,
+      take,
+      cursor,
+      where,
+      orderBy,
+    });
   }
 
   findOne(
@@ -31,7 +44,9 @@ export class NotesService {
     return `This action updates a #${id} note`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} note`;
+  remove(where: Prisma.NoteWhereUniqueInput): Promise<Note> {
+    return this.prisma.note.delete({
+      where,
+    });
   }
 }
