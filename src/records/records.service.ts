@@ -38,6 +38,7 @@ export class RecordsService {
     return this.prisma.record.findUnique({
       where: recordWhereUniqueInput,
       include: {
+        court: true,
         notes: true,
       },
     });
