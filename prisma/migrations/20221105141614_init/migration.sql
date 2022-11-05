@@ -26,7 +26,9 @@ CREATE TABLE "Record" (
     "tracing" "Tracing" NOT NULL DEFAULT 'ACEPTA_CARGO',
     "priority" "Priority" NOT NULL DEFAULT 'NULA',
     "archive" BOOLEAN NOT NULL DEFAULT false,
-    "office" TEXT,
+    "defendant" TEXT[],
+    "prosecutor" TEXT[],
+    "insurance" TEXT[],
     "courtId" INTEGER,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -50,6 +52,7 @@ CREATE TABLE "Note" (
 CREATE TABLE "Court" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
+    "offices" TEXT[],
     "city" TEXT,
     "judge" TEXT,
     "address" TEXT,

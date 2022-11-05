@@ -30,8 +30,11 @@ model Record {
   tracing     Tracing   @default(ACEPTA_CARGO)
   priority    Priority  @default(NULA)
   archive     Boolean   @default(false)
-  office      String?   
   notes       Note[]
+
+  defendant   String[]
+  prosecutor  String[]
+  insurance   String[]
 
   court       Court?   @relation(fields: [courtId], references: [id])
   courtId     Int?
@@ -55,11 +58,14 @@ model Note {
 model Court {
   id          Int        @id @default(autoincrement())
   name        String
+  offices     String[]
   city        String?
   judge       String?
   address     String?
+  
   district    District?  @relation(fields: [districtId], references: [id])
-  districtId  Int?   
+  districtId  Int?
+
   records     Record[]
 }
 
