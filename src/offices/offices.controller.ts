@@ -31,8 +31,14 @@ export class OfficesController {
 
   // OBTENER SECRETARÍAS POR ID
   @Get(':id')
-  findone(@Param('id') id: string): Promise<OfficeModel> {
+  findOne(@Param('id') id: string): Promise<OfficeModel> {
     return this.officesService.findOne({ id: Number(id) });
+  }
+
+  // OBTENER SECRETARÍAS POR ID DE JUZGADO
+  @Get('filter-by-court/:id')
+  findOneByCourt(@Param('id') id: string): Promise<OfficeModel[]> {
+    return this.officesService.findOneByCourt(id);
   }
 
   // ACTIALIZAR SECRETARÍAS POR ID

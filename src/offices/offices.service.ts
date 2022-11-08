@@ -44,6 +44,15 @@ export class OfficesService {
     });
   }
 
+  findOneByCourt(id: string): Promise<Office[]> {
+    console.log(id);
+    return this.prisma.office.findMany({
+      where: {
+        courtId: Number(id),
+      },
+    });
+  }
+
   update(id: number, updateOfficeDto: UpdateOfficeDto): Promise<Office> {
     return this.prisma.office.update({
       data: updateOfficeDto,
