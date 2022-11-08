@@ -25,12 +25,4 @@ export class UpdateRecordDto extends PartialType(CreateRecordDto) {
   @IsBoolean()
   @IsOptional()
   archive: boolean;
-
-  @IsString()
-  @IsOptional()
-  office: string;
-
-  @IsInt()
-  @IsOptional()
-  courtId: number;
 }

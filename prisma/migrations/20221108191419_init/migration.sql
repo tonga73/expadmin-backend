@@ -29,7 +29,7 @@ CREATE TABLE "Record" (
     "defendant" TEXT[],
     "prosecutor" TEXT[],
     "insurance" TEXT[],
-    "courtId" INTEGER,
+    "officeId" INTEGER,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -49,10 +49,18 @@ CREATE TABLE "Note" (
 );
 
 -- CreateTable
+CREATE TABLE "Office" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
+    "courtId" INTEGER,
+
+    CONSTRAINT "Office_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Court" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
-    "offices" TEXT[],
     "city" TEXT,
     "judge" TEXT,
     "address" TEXT,
@@ -76,10 +84,13 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 CREATE UNIQUE INDEX "District_name_key" ON "District"("name");
 
 -- AddForeignKey
-ALTER TABLE "Record" ADD CONSTRAINT "Record_courtId_fkey" FOREIGN KEY ("courtId") REFERENCES "Court"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "Record" ADD CONSTRAINT "Record_officeId_fkey" FOREIGN KEY ("officeId") REFERENCES "Office"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Note" ADD CONSTRAINT "Note_recordId_fkey" FOREIGN KEY ("recordId") REFERENCES "Record"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Office" ADD CONSTRAINT "Office_courtId_fkey" FOREIGN KEY ("courtId") REFERENCES "Court"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Court" ADD CONSTRAINT "Court_districtId_fkey" FOREIGN KEY ("districtId") REFERENCES "District"("id") ON DELETE SET NULL ON UPDATE CASCADE;

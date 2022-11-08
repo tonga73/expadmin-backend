@@ -9,6 +9,7 @@ import { RecordsModule } from './records/records.module';
 import { NotesModule } from './notes/notes.module';
 import { CourtsModule } from './courts/courts.module';
 import { DistrictsModule } from './districts/districts.module';
+import { OfficesModule } from './offices/offices.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { DistrictsModule } from './districts/districts.module';
     NotesModule,
     CourtsModule,
     DistrictsModule,
+    OfficesModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
