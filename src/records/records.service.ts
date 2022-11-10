@@ -40,7 +40,11 @@ export class RecordsService {
       include: {
         office: {
           include: {
-            court: true,
+            court: {
+              include: {
+                district: true,
+              },
+            },
           },
         },
         notes: true,
@@ -55,7 +59,11 @@ export class RecordsService {
       include: {
         office: {
           include: {
-            court: true,
+            court: {
+              include: {
+                district: true,
+              },
+            },
           },
         },
         notes: true,
