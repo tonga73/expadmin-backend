@@ -52,6 +52,14 @@ export class RecordsService {
     return this.prisma.record.update({
       data: updateRecordDto,
       where: { id },
+      include: {
+        office: {
+          include: {
+            court: true,
+          },
+        },
+        notes: true,
+      },
     });
   }
 
