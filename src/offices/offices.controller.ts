@@ -47,6 +47,6 @@ export class OfficesController {
     @Param('id') id: string,
     @Body() updateOfficeDto: UpdateOfficeDto,
   ): Promise<OfficeModel> {
-    return this.officesService.remove({ id: Number(id) });
+    return this.officesService.update(+id, updateOfficeDto);
   }
 }

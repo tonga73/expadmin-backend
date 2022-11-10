@@ -16,7 +16,4 @@ export class UpdateOfficeDto {
   @IsString()
   @IsNotEmpty()
   name: string;
-
-  @IsInt()
-  courtId: number;
 }
