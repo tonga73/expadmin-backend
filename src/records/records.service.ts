@@ -47,7 +47,11 @@ export class RecordsService {
             },
           },
         },
-        notes: true,
+        notes: {
+          orderBy: {
+            createdAt: 'asc',
+          },
+        },
       },
     });
   }

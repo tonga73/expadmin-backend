@@ -40,8 +40,11 @@ export class NotesService {
     });
   }
 
-  update(id: number, updateNoteDto: UpdateNoteDto) {
-    return `This action updates a #${id} note`;
+  update(id: number, updateNoteDto: UpdateNoteDto): Promise<Note> {
+    return this.prisma.note.update({
+      data: updateNoteDto,
+      where: { id },
+    });
   }
 
   remove(where: Prisma.NoteWhereUniqueInput): Promise<Note> {
