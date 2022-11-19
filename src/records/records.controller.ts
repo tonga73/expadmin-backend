@@ -6,12 +6,15 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { RecordsService } from './records.service';
 import { CreateRecordDto } from './dto/create-record.dto';
 import { UpdateRecordDto } from './dto/update-record.dto';
+import { QueryDto } from './dto/query.dto';
 
-import { Record as RecordModel } from '@prisma/client';
+import { Prisma, Record as RecordModel, Tracing } from '@prisma/client';
+import { Priority } from '@prisma/client';
 
 @Controller('records')
 export class RecordsController {
@@ -25,8 +28,17 @@ export class RecordsController {
 
   // OBTENER TODOS LOS EXPEDIENTES
   @Get()
-  findAll(): Promise<RecordModel[]> {
-    return this.recordsService.findAll({});
+  findAll(@Query() query: QueryDto): Promise<RecordModel[]> {
+    return this.recordsService.findAll({
+      where: {
+        priority: query.priority,
+        tracing: query.tracing,
+        archive: query.archive,
+      },
+      orderBy: {
+        updatedAt: query.updatedAt,
+      },
+    });
   }
 
   // OBTENER EXPEDIENTE POR ID`

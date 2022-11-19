@@ -30,6 +30,7 @@ model Record {
   tracing     Tracing   @default(ACEPTA_CARGO)
   priority    Priority  @default(NULA)
   archive     Boolean   @default(false)
+  favorite    Boolean   @default(false)
   notes       Note[]
 
   defendant   String[]

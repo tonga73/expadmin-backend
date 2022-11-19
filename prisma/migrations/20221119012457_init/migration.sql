@@ -26,6 +26,7 @@ CREATE TABLE "Record" (
     "tracing" "Tracing" NOT NULL DEFAULT 'ACEPTA_CARGO',
     "priority" "Priority" NOT NULL DEFAULT 'NULA',
     "archive" BOOLEAN NOT NULL DEFAULT false,
+    "favorite" BOOLEAN NOT NULL DEFAULT false,
     "defendant" TEXT[],
     "prosecutor" TEXT[],
     "insurance" TEXT[],
