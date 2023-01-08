@@ -28,17 +28,39 @@ export class RecordsController {
 
   // OBTENER TODOS LOS EXPEDIENTES
   @Get()
-  findAll(@Query() query: QueryDto): Promise<RecordModel[]> {
-    return this.recordsService.findAll({
-      where: {
-        priority: query.priority,
-        tracing: query.tracing,
-        archive: query.archive,
-      },
-      orderBy: {
-        updatedAt: query.updatedAt,
-      },
-    });
+  findAll(): Promise<RecordModel[]> {
+    return this.recordsService.findAll({});
+  }
+
+  // OBTENER TODOS LOS EXPEDIENTES
+  @Get('filter')
+  findFiltered(@Query() query: QueryDto): Promise<RecordModel[]> {
+    if (/^\d/.test(query.search)) {
+      // IF NUMBER COMPARE "search" WITH order
+      return this.recordsService.findAll({
+        where: {
+          order: {
+            contains: query.search,
+          },
+        },
+      });
+    } else {
+      // IF NOT NUMBER COMPARE "search" WITH name
+      return this.recordsService.findAll({
+        where: {
+          name: {
+            contains: query.search,
+            mode: 'insensitive',
+          },
+          priority: query.priority,
+          tracing: query.tracing,
+          archive: query.archive,
+        },
+        orderBy: {
+          updatedAt: query.updatedAt,
+        },
+      });
+    }
   }
 
   // OBTENER EXPEDIENTE POR ID`

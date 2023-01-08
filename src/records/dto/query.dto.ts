@@ -27,6 +27,11 @@ export class QueryDto {
   @IsNotEmpty()
   archive: boolean;
 
+  @IsString()
+  @IsOptional()
+  @IsNotEmpty()
+  search: string;
+
   @IsEnum(Prisma.SortOrder)
   @IsOptional()
   @IsNotEmpty()
