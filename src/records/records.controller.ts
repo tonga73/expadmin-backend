@@ -42,6 +42,12 @@ export class RecordsController {
           order: {
             contains: query.search,
           },
+          priority: query.priority,
+          tracing: query.tracing,
+          archive: query.archive,
+        },
+        orderBy: {
+          updatedAt: query.updatedAt,
         },
       });
     } else {
