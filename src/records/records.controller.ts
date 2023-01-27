@@ -47,7 +47,7 @@ export class RecordsController {
           archive: query.archive,
         },
         orderBy: {
-          updatedAt: query.updatedAt,
+          updatedAt: query.updatedAt || "desc",
         },
       });
     } else {
@@ -63,7 +63,7 @@ export class RecordsController {
           archive: query.archive,
         },
         orderBy: {
-          updatedAt: query.updatedAt,
+          updatedAt: query.updatedAt || "desc",
         },
       });
     }

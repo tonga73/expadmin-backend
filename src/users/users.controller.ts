@@ -30,15 +30,15 @@ export class UsersController {
   }
 
   // OBTENER USUARIO POR ID
-  @Get(':id')
-  findOne(@Param('id') id: string): Promise<UserModel> {
-    return this.usersService.findOne({ id: Number(id) });
+  @Get(':email')
+  findOne(@Param('email') email: string): Promise<UserModel> {
+    return this.usersService.findOne({ email: email });
   }
 
   // EDITAR USUARIO POR ID
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
+  @Patch(':email')
+  update(@Param('email') email: string, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.update(email, updateUserDto);
   }
 
   // ELIMINAR USUARIO POR ID
