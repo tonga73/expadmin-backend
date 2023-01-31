@@ -6,7 +6,9 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards
 } from '@nestjs/common';
+import { AuthGuard } from '../auth.guard';
 import { NotesService } from './notes.service';
 import { CreateNoteDto } from './dto/create-note.dto';
 import { UpdateNoteDto } from './dto/update-note.dto';
@@ -14,6 +16,7 @@ import { UpdateNoteDto } from './dto/update-note.dto';
 import { Note as NoteModel } from '@prisma/client';
 
 @Controller('notes')
+@UseGuards(AuthGuard)
 export class NotesController {
   constructor(private readonly notesService: NotesService) {}
 
