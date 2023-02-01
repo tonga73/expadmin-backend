@@ -6,7 +6,9 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards
 } from '@nestjs/common';
+import { AuthGuard } from '../auth.guard';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -19,31 +21,35 @@ export class UsersController {
 
   // CREAR USUARIO
   @Post()
+  @UseGuards(AuthGuard)
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
 
   // OBTENER TODOS LOS USUARIOS
   @Get()
+  @UseGuards(AuthGuard)
   async findAll(): Promise<UserModel[]> {
     return this.usersService.findAll({});
   }
 
-  // OBTENER USUARIO POR ID
-  @Get(':id')
-  findOne(@Param('id') id: string): Promise<UserModel> {
-    return this.usersService.findOne({ id: Number(id) });
+  // OBTENER USUARIO POR EMAIL
+  @Get(':email')
+  findOne(@Param('email') email: string): Promise<UserModel> {
+    return this.usersService.findOne({ email: email });
   }
 
-  // EDITAR USUARIO POR ID
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
+  // EDITAR USUARIO POR EMAIL
+  @Patch(':email')
+  @UseGuards(AuthGuard)
+  update(@Param('email') email: string, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.update(email, updateUserDto);
   }
 
-  // ELIMINAR USUARIO POR ID
-  @Delete(':id')
-  remove(@Param('id') id: string): Promise<UserModel> {
-    return this.usersService.remove({ id: Number(id) });
+  // ELIMINAR USUARIO POR EMAIL
+  @Delete(':email')
+  @UseGuards(AuthGuard)
+  remove(@Param('email') email: string): Promise<UserModel> {
+    return this.usersService.remove({ email: email });
   }
 }

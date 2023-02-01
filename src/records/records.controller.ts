@@ -7,7 +7,9 @@ import {
   Param,
   Delete,
   Query,
+  UseGuards
 } from '@nestjs/common';
+import { AuthGuard } from '../auth.guard';
 import { RecordsService } from './records.service';
 import { CreateRecordDto } from './dto/create-record.dto';
 import { UpdateRecordDto } from './dto/update-record.dto';
@@ -17,6 +19,7 @@ import { Prisma, Record as RecordModel, Tracing } from '@prisma/client';
 import { Priority } from '@prisma/client';
 
 @Controller('records')
+@UseGuards(AuthGuard)
 export class RecordsController {
   constructor(private readonly recordsService: RecordsService) {}
 
@@ -32,7 +35,7 @@ export class RecordsController {
     return this.recordsService.findAll({});
   }
 
-  // OBTENER TODOS LOS EXPEDIENTES
+  // OBTENER TODOS LOS EXPEDIENTES FILTRADOS
   @Get('filter')
   findFiltered(@Query() query: QueryDto): Promise<RecordModel[]> {
     if (/^\d/.test(query.search)) {
@@ -47,7 +50,7 @@ export class RecordsController {
           archive: query.archive,
         },
         orderBy: {
-          updatedAt: query.updatedAt,
+          updatedAt: query.updatedAt || "desc",
         },
       });
     } else {
@@ -63,7 +66,7 @@ export class RecordsController {
           archive: query.archive,
         },
         orderBy: {
-          updatedAt: query.updatedAt,
+          updatedAt: query.updatedAt || "desc",
         },
       });
     }
