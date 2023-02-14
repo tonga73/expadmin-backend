@@ -12,6 +12,7 @@ CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
     "email" TEXT NOT NULL,
     "name" TEXT,
+    "googleId" TEXT,
     "verified" BOOLEAN NOT NULL DEFAULT false,
     "role" "Role" NOT NULL DEFAULT 'USER',
 
@@ -95,3 +96,4 @@ ALTER TABLE "Office" ADD CONSTRAINT "Office_courtId_fkey" FOREIGN KEY ("courtId"
 
 -- AddForeignKey
 ALTER TABLE "Court" ADD CONSTRAINT "Court_districtId_fkey" FOREIGN KEY ("districtId") REFERENCES "District"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
