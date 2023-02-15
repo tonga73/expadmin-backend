@@ -39,25 +39,27 @@ export class RecordsController {
   @Get('filter')
   findSearch(@Query() query: QueryDto): Promise<RecordModel[]> {
     
-      const {search,...orderByOptions} = query 
+      const {search, priority, tracing, ...orderByOptions} = query 
 
       if (/^\d/.test(search)) {
         return this.recordsService.findAll({
           where: {
             order: {
-              contains: query.search,
+              contains: search,
             }
           },
           take: 10,
           orderBy: Object.keys(orderByOptions).length > 0 ? orderByOptions : { updatedAt: "desc" },
         });
-      } else {
+      } else if (!/^\d/.test(search) || priority || tracing) {
         return this.recordsService.findAll({
           where: {
             name: {
               contains: search,
               mode: 'insensitive'
-            }
+            },
+            priority: priority,
+            tracing: tracing
           },
           take: 10,
           orderBy: Object.keys(orderByOptions).length > 0 ? orderByOptions : { updatedAt: "desc" },

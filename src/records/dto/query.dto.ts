@@ -27,6 +27,16 @@ export class QueryDto {
   @IsNotEmpty()
   order: Prisma.SortOrder;
 
+  @IsEnum(Priority)
+  @IsOptional()
+  @IsNotEmpty()
+  priority: Priority;
+
+  @IsEnum(Tracing)
+  @IsOptional()
+  @IsNotEmpty()
+  tracing: Tracing;
+
   @IsEnum(Prisma.SortOrder)
   @IsOptional()
   @IsNotEmpty()
