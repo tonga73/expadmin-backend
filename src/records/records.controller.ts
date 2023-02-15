@@ -30,51 +30,45 @@ export class RecordsController {
   }
 
   // OBTENER TODOS LOS EXPEDIENTES
-  @Get()
+  @Get('')
   findAll(): Promise<RecordModel[]> {
     return this.recordsService.findAll({});
   }
 
   // OBTENER TODOS LOS EXPEDIENTES FILTRADOS
   @Get('filter')
-  findFiltered(@Query() query: QueryDto): Promise<RecordModel[]> {
-    if (/^\d/.test(query.search)) {
-      // IF NUMBER COMPARE "search" WITH order
-      return this.recordsService.findAll({
-        where: {
-          order: {
-            contains: query.search,
-          },
-          priority: query.priority,
-          tracing: query.tracing,
-          archive: query.archive,
-        },
-        orderBy: {
-          updatedAt: query.updatedAt || "desc",
-        },
-      });
-    } else {
-      // IF NOT NUMBER COMPARE "search" WITH name
-      return this.recordsService.findAll({
-        where: {
-          name: {
-            contains: query.search,
-            mode: 'insensitive',
-          },
-          priority: query.priority,
-          tracing: query.tracing,
-          archive: query.archive,
-        },
-        orderBy: {
-          updatedAt: query.updatedAt || "desc",
-        },
-      });
-    }
-  }
+  findSearch(@Query() query: QueryDto): Promise<RecordModel[]> {
+    
+      const {search, priority, tracing, ...orderByOptions} = query 
 
+      if (/^\d/.test(search)) {
+        return this.recordsService.findAll({
+          where: {
+            order: {
+              contains: search,
+            }
+          },
+          take: 10,
+          orderBy: Object.keys(orderByOptions).length > 0 ? orderByOptions : { updatedAt: "desc" },
+        });
+      } else if (!/^\d/.test(search) || priority || tracing) {
+        return this.recordsService.findAll({
+          where: {
+            name: {
+              contains: search,
+              mode: 'insensitive'
+            },
+            priority: priority,
+            tracing: tracing
+          },
+          take: 10,
+          orderBy: Object.keys(orderByOptions).length > 0 ? orderByOptions : { updatedAt: "desc" },
+        });
+      }
+  }
   // OBTENER EXPEDIENTE POR ID`
   @Get(':id')
-  findOne(@Param('id') id: string): Promise<RecordModel> {
+  findOne(@Param('id') id: number): Promise<RecordModel> {
     return this.recordsService.findOne({ id: Number(id) });
   }
 

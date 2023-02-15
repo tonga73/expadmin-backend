@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,14 +5,16 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  shadowDatabaseUrl = env("DATABASE_URL")
 }
+
 model User {
-  id        Int       @id @default(autoincrement())
-  email     String    @unique
-  name      String?
-  verified  Boolean   @default(false)
-  role      Role      @default(USER)
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  name     String?
+  googleId String?
+  image    String?
+  verified Boolean @default(false)
+  role     Role    @default(USER)
 }
 
 enum Role {
@@ -24,64 +23,64 @@ enum Role {
 }
 
 model Record {
-  id          Int       @id @default(autoincrement())
-  name        String
-  order       String?
-  tracing     Tracing   @default(ACEPTA_CARGO)
-  priority    Priority  @default(NULA)
-  archive     Boolean   @default(false)
-  favorite    Boolean   @default(false)
-  notes       Note[]
+  id       Int      @id @default(autoincrement())
+  name     String
+  order    String?
+  tracing  Tracing  @default(ACEPTA_CARGO)
+  priority Priority @default(NULA)
+  archive  Boolean  @default(false)
+  favorite Boolean  @default(false)
+  notes    Note[]
 
-  defendant   String[]
-  prosecutor  String[]
-  insurance   String[]
+  defendant  String[]
+  prosecutor String[]
+  insurance  String[]
 
-  office      Office?   @relation(fields: [officeId], references: [id])
-  officeId    Int?
+  office   Office? @relation(fields: [officeId], references: [id])
+  officeId Int?
 
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Note {
-  id          Int       @id @default(autoincrement())
-  name        String?
-  text        String
+  id   Int     @id @default(autoincrement())
+  name String?
+  text String
 
-  record      Record?   @relation(fields: [recordId], references: [id])
-  recordId    Int
+  record   Record? @relation(fields: [recordId], references: [id])
+  recordId Int
 
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Office {
-  id          Int        @id @default(autoincrement())
-  name        String
+  id   Int    @id @default(autoincrement())
+  name String
 
-  records     Record[]
+  records Record[]
 
-  court       Court?     @relation(fields: [courtId], references: [id])
-  courtId     Int?
+  court   Court? @relation(fields: [courtId], references: [id])
+  courtId Int?
 }
 
 model Court {
-  id          Int        @id @default(autoincrement())
-  name        String
-  offices     Office[]
-  city        String?
-  judge       String?
-  address     String?
-  
-  district    District?  @relation(fields: [districtId], references: [id])
-  districtId  Int?
+  id      Int      @id @default(autoincrement())
+  name    String
+  offices Office[]
+  city    String?
+  judge   String?
+  address String?
+
+  district   District? @relation(fields: [districtId], references: [id])
+  districtId Int?
 }
 
 model District {
-  id      Int     @id @default(autoincrement())
-  name    String  @unique
-  courts  Court[]
+  id     Int     @id @default(autoincrement())
+  name   String  @unique
+  courts Court[]
 }
 
 enum Tracing {

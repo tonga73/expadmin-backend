@@ -19,12 +19,17 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
   @IsInt()
   @IsNotEmpty()
   @IsOptional()
-  googleId: number;
+  googleId: string;
 
   @IsString()
   @IsNotEmpty()
   @IsOptional()
   email: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @IsOptional()
+  image: string;
 
   @IsString()
   @IsOptional()

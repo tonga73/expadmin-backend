@@ -12,25 +12,35 @@ import { Type } from 'class-transformer';
 import { Prisma, Tracing, Priority, Note } from '@prisma/client';
 
 export class QueryDto {
-  @IsEnum(Tracing)
+  @IsString()
   @IsOptional()
   @IsNotEmpty()
-  tracing: Tracing;
+  search: string;
+
+  @IsEnum(Prisma.SortOrder)
+  @IsOptional()
+  @IsNotEmpty()
+  name: Prisma.SortOrder;
+
+  @IsEnum(Prisma.SortOrder)
+  @IsOptional()
+  @IsNotEmpty()
+  order: Prisma.SortOrder;
 
   @IsEnum(Priority)
   @IsOptional()
   @IsNotEmpty()
   priority: Priority;
 
-  @IsBoolean()
+  @IsEnum(Tracing)
   @IsOptional()
   @IsNotEmpty()
-  archive: boolean;
+  tracing: Tracing;
 
-  @IsString()
+  @IsEnum(Prisma.SortOrder)
   @IsOptional()
   @IsNotEmpty()
-  search: string;
+  favorite: Prisma.SortOrder;
 
   @IsEnum(Prisma.SortOrder)
   @IsOptional()
