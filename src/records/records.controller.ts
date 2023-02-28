@@ -7,7 +7,7 @@ import {
   Param,
   Delete,
   Query,
-  UseGuards
+  UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '../auth.guard';
 import { RecordsService } from './records.service';
@@ -38,33 +38,26 @@ export class RecordsController {
   // OBTENER TODOS LOS EXPEDIENTES FILTRADOS
   @Get('filter')
   findSearch(@Query() query: QueryDto): Promise<RecordModel[]> {
-    
-      const {search, priority, tracing, ...orderByOptions} = query 
+    const { search, priority, tracing, ...orderByOptions } = query;
 
-      if (/^\d/.test(search)) {
-        return this.recordsService.findAll({
-          where: {
-            order: {
-              contains: search,
-            }
-          },
-          take: 10,
-          orderBy: Object.keys(orderByOptions).length > 0 ? orderByOptions : { updatedAt: "desc" },
-        });
-      } else if (!/^\d/.test(search) || priority || tracing) {
-        return this.recordsService.findAll({
-          where: {
-            name: {
-              contains: search,
-              mode: 'insensitive'
-            },
-            priority: priority,
-            tracing: tracing
-          },
-          take: 10,
-          orderBy: Object.keys(orderByOptions).length > 0 ? orderByOptions : { updatedAt: "desc" },
-        });
-      }
+    return this.recordsService.findAll({
+      where: {
+        order: {
+          contains: !!search && search.match(/\d/g) ? search : undefined,
+        },
+        name: {
+          contains: !!search && search.match(/[a-zA-Z]/) ? search : undefined,
+          mode: 'insensitive',
+        },
+        priority: priority ? priority : undefined,
+        tracing: tracing ? tracing : undefined,
+      },
+      take: 10,
+      orderBy:
+        Object.keys(orderByOptions).length > 0
+          ? orderByOptions
+          : { updatedAt: 'desc' },
+    });
   }
   // OBTENER EXPEDIENTE POR ID`
   @Get(':id')
