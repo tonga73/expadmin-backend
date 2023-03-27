@@ -38,7 +38,7 @@ export class RecordsController {
   // OBTENER TODOS LOS EXPEDIENTES FILTRADOS
   @Get('filter')
   findSearch(@Query() query: QueryDto): Promise<RecordModel[]> {
-    const { search, priority, tracing, ...orderByOptions } = query;
+    const { search, priority, tracing, take, ...orderByOptions } = query;
 
     return this.recordsService.findAll({
       where: {
@@ -52,7 +52,7 @@ export class RecordsController {
         priority: priority ? priority : undefined,
         tracing: tracing ? tracing : undefined,
       },
-      take: 10,
+      take: Number(take) || 10,
       orderBy:
         Object.keys(orderByOptions).length > 0
           ? orderByOptions

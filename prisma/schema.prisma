@@ -25,7 +25,8 @@ enum Role {
 model Record {
   id       Int      @id @default(autoincrement())
   name     String
-  order    String?
+  order    String   @unique
+  code     String?
   tracing  Tracing  @default(ACEPTA_CARGO)
   priority Priority @default(NULA)
   archive  Boolean  @default(false)

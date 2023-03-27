@@ -6,11 +6,10 @@ import {
   Body,
   Put,
   Delete,
-  UseGuards
+  UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from './auth.guard';
 import { AppService } from './app.service';
-
 
 import { Role, Tracing, Priority } from '@prisma/client';
 
