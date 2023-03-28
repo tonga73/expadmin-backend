@@ -32,7 +32,15 @@ export class RecordsController {
   // OBTENER TODOS LOS EXPEDIENTES
   @Get('')
   findAll(): Promise<RecordModel[]> {
-    return this.recordsService.findAll({});
+    return this.recordsService.findAll({
+      include: {
+        parts: {
+          select: {
+            user: true,
+          },
+        },
+      },
+    });
   }
 
   // OBTENER TODOS LOS EXPEDIENTES FILTRADOS

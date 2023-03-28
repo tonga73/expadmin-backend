@@ -16,7 +16,7 @@ model User {
   verified Boolean @default(false)
   role     Role    @default(USER)
 
-  records RecordsAndUser[]
+  designations RecordsAndUser[]
 }
 
 enum Role {
@@ -36,7 +36,7 @@ model Record {
   archive  Boolean  @default(false)
   favorite Boolean  @default(false)
 
-  users RecordsAndUser[]
+  parts RecordsAndUser[]
 
   notes Note[]
 
